@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Only POST allowed" });
   }
 
-  const { chat_id, text } = req.body;
+  const { chat_id, text, parse_mode } = req.body;
 
   if (!chat_id || !text) {
     return res.status(400).json({ error: "Missing chat_id or text" });
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         chat_id,
         text: text,
-        parse_mode: "HTML"
+        parse_mode: parse_mode
       }),
     });
 
