@@ -4,14 +4,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Only POST allowed" });
   }
 
-  const { chat_id, text, parse_mode } = req.body;
+  const { chat_id, text, parse_mode, token } = req.body;
 
   if (!chat_id || !text) {
     return res.status(400).json({ error: "Missing chat_id or text" });
   }
 
-  const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-  const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+  const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
   try {
     const tgRes = await fetch(url, {
