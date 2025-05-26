@@ -4,10 +4,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Only POST allowed" });
   }
 
-  const { chat_id, message } = req.body;
+  const { chat_id, text } = req.body;
 
-  if (!chat_id || !message) {
-    return res.status(400).json({ error: "Missing chat_id or message" });
+  if (!chat_id || !text) {
+    return res.status(400).json({ error: "Missing chat_id or text" });
   }
 
   const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -21,7 +21,8 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         chat_id,
-        text: message,
+        text: text,
+        parse_mode: "HTML"
       }),
     });
 
